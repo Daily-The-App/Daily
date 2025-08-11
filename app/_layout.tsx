@@ -6,6 +6,8 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+// Root layout component for Daily app
+// Updated for branch protection testing
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
