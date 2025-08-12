@@ -1,8 +1,9 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { getAuth, signOut } from '@react-native-firebase/auth';
 
 export default function HomeScreen() {
   return (
@@ -48,6 +49,7 @@ export default function HomeScreen() {
           <Text>app-example</Text>.
         </Text>
       </View>
+      <Button title="signout" onPress={() => signOut(getAuth())} />
     </ParallaxScrollView>
   );
 }

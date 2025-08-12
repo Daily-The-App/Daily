@@ -6,21 +6,29 @@ import { Controller, useForm } from "react-hook-form";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import auth from "@react-native-firebase/auth";
+import {
+  fetchSignInMethodsForEmail,
+} from "@react-native-firebase/auth";
+import { initializeFirebaseIfNeeded } from "@/lib/firebase";
+import { router } from "expo-router";
 
 const Signup = () => {
   const { control, handleSubmit } = useForm({
-    defaultValues: { "email": "" },
+    defaultValues: { "email": "", "password": "" },
   });
 
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState({ email: false, password: false });
+  const [exists, setExists] = useState(false);
 
   const onSubmit = async (data: Record<string, any>) => {
     try {
-      await auth().fetchSignInMethodsForEmail(data.email);
-      // TODO:
-      // - If methods.length > 0, show password field or navigate to login
-      // - Else, navigate to sign-up flow
+      const auth = initializeFirebaseIfNeeded();
+      const methods = await fetchSignInMethodsForEmail(auth, data.email);
+      if (!methods.length) {
+        router.replace(`/(auth)/create?e=${data.email}`);
+      } else {
+        setExists(true);
+      }
     } catch (e) {
       // TODO: show a user-friendly error (invalid email, etc.)
       console.error("fetchSignInMethodsForEmail failed", e);
@@ -32,8 +40,8 @@ const Signup = () => {
       <Text style={styles.brand}>Daily</Text>
       <Text style={styles.header}>Log in or sign up</Text>
       <Text style={styles.sub}>
-        You&apos;ll be able to hold yourself accountable and share goals with your
-        friends.
+        You&apos;ll be able to hold yourself accountable and share goals with
+        your friends.
       </Text>
       <Controller
         control={control}
@@ -49,30 +57,74 @@ const Signup = () => {
           return (
             <View style={styles.wrapper}>
               <Text
-                style={[styles.label, focused && { color: "#3d53d4ff" }]}
+                style={[styles.label, focused.email && { color: "#3d53d4ff" }]}
               >
                 Email address
               </Text>
               <TextInput
                 onFocus={() => {
-                  setFocused(true);
+                  setFocused((prev) => ({ ...prev, email: true }));
                 }}
-                style={[styles.input, focused && { borderColor: "#3d53d4ff" }]}
+                style={[
+                  styles.input,
+                  focused.email && { borderColor: "#3d53d4ff" },
+                ]}
                 onBlur={() => {
                   onBlur();
-                  setFocused(false);
+                  setFocused((prev) => ({ ...prev, email: false }));
                 }}
                 onChangeText={onChange}
                 value={value}
               />
-              <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-                <Text style={styles.buttonText}>Continue</Text>
-              </Pressable>
             </View>
           );
         }}
         name={"email"}
       />
+      <Controller
+        control={control}
+        name={"password"}
+        rules={{
+          pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => {
+          return (
+            exists
+              ? (
+                <View style={styles.wrapper}>
+                  <Text
+                    style={[
+                      styles.label,
+                      focused.password && { color: "#3d53d4ff" },
+                    ]}
+                  >
+                    Password
+                  </Text>
+                  <TextInput
+                    secureTextEntry
+                    onFocus={() => {
+                      setFocused((prev) => ({ ...prev, password: true }));
+                    }}
+                    style={[
+                      styles.input,
+                      focused.password && { borderColor: "#3d53d4ff" },
+                    ]}
+                    onBlur={() => {
+                      onBlur();
+                      setFocused((prev) => ({ ...prev, password: false }));
+                    }}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                </View>
+              )
+              : <></>
+          );
+        }}
+      />
+      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.buttonText}>Continue</Text>
+      </Pressable>
       <View style={styles.dividerWrapper}>
         <DivideOR />
       </View>
