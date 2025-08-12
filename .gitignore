@@ -1,39 +1,265 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
-# dependencies
+# ============================================================================
+# NODE.JS / NPM / YARN
+# ============================================================================
+
+# Dependencies
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.yarn/cache
+.yarn/install-state.gz
+.pnp.*
+
+# Package manager lock files (keep only yarn.lock)
+package-lock.json
+pnpm-lock.yaml
+
+# ============================================================================
+# EXPO / REACT NATIVE
+# ============================================================================
 
 # Expo
 .expo/
+.expo-shared/
 dist/
 web-build/
 expo-env.d.ts
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# Metro
+# Metro bundler
 .metro-health-check*
+.metro-cache/
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# React Native
+# Build folders
+build/
+DerivedData/
+
+# CocoaPods (iOS)
+ios/Pods/
+ios/.xcode.env.local
+
+# Flipper
+ios/Flipper/
+
+# Fastlane
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/**/*.png
+ios/fastlane/test_output
+
+# Gradle (Android)
+android/.gradle/
+android/app/build/
+android/build/
+android/.project
+android/.settings/
+android/local.properties
+android/gradle.properties
+android/key.properties
+
+# Android Studio
+.idea/
+*.iml
+
+# ============================================================================
+# NATIVE FILES & CERTIFICATES
+# ============================================================================
+
+# iOS certificates and provisioning profiles
+*.mobileprovision
+*.p12
+*.p8
+*.cer
+*.certSigningRequest
+*.key
+*.pem
+
+# Android signing
+*.jks
+*.keystore
+android/app/my-upload-key.keystore
+android/app/my-release-key.keystore
+
+# Native crash logs
+*.crash
+*.xccrashpoint
+
+# Kotlin
+.kotlin/
+
+# ============================================================================
+# DEVELOPMENT TOOLS
+# ============================================================================
+
+# TypeScript
+*.tsbuildinfo
+.tsbuildinfo
+
+# ESLint
+.eslintcache
+
+# Prettier
+.prettiercache
+
+# Testing
+coverage/
+.nyc_output
+.jest/
+
+# Storybook
+storybook-static/
+
+# ============================================================================
+# ENVIRONMENT & CONFIG
+# ============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Firebase
+.firebaserc
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+
+# Google Services
+google-services.json
+GoogleService-Info.plist
+
+# ============================================================================
+# OPERATING SYSTEM
+# ============================================================================
 
 # macOS
 .DS_Store
-*.pem
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
-# local env files
-.env*.local
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.log
 
-# typescript
-*.tsbuildinfo
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
 
+# ============================================================================
+# EDITORS & IDEs
+# ============================================================================
+
+# Visual Studio Code
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Vim
+*.swp
+*.swo
+*.tmp
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# ============================================================================
+# TEMPORARY & LOG FILES
+# ============================================================================
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ============================================================================
+# PROJECT-SPECIFIC
+# ============================================================================
+
+# Custom app example
 app-example
+
+# Documentation builds
+docs/build/
+
+# Backup files
+*.orig
+*.orig.*
+*.bak
+*.backup
+
+# Local development
+.local/
+.cache/
+
+# Bundle analyzer
+bundle-analyzer-report.html
+
+# Sentry
+.sentryclirc

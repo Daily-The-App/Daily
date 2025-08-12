@@ -1,11 +1,12 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { AppleIcon } from "./ui/AuthIcons";
+import { Classes } from "./GoogleButton";
 
-const AppleButton = () => {
+const AppleButton = ({classes}: {classes: Classes}) => {
     return (
-        <Pressable style={styles.button}>
+        <Pressable style={[styles.button, classes && classes.button]}>
             <AppleIcon size={18} />
-            <Text style={styles.authButtonText}>Continue with Google</Text>
+            <Text style={[styles.authButtonText, classes && classes.text]}>Continue with Apple</Text>
         </Pressable>
     );
 };
@@ -29,3 +30,4 @@ const styles = StyleSheet.create({
 });
 
 export default AppleButton;
+
