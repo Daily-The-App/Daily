@@ -4,12 +4,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { AuthBottomSheet } from "@/components/bottom-sheet";
-import { useNavigation } from "expo-router";
 import GoogleButton from "@/components/GoogleButton";
 import AppleButton from "@/components/AppleButton";
 
@@ -31,12 +28,15 @@ export default function AuthIndex() {
             <Pressable
               style={styles.authButton}
               onPress={() => {
-                router.push("/(auth)/sign-up");
+                router.push("/(auth)/auth");
               }}
             >
               <Text style={styles.authButtonText}>Sign up</Text>
             </Pressable>
             <Pressable
+              onPress={() => {
+                router.push("/(auth)/auth");
+              }}
               style={[styles.authButton, {
                 "backgroundColor": "transparent",
                 borderWidth: 1,

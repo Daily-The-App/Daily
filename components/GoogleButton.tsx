@@ -1,13 +1,12 @@
 import { Pressable, StyleSheet, Text, TextStyle, ViewStyle } from "react-native";
 import { GoogleIcon } from "./ui/AuthIcons";
-import { CSSProperties } from "react";
 
 export interface Classes {
     button?: ViewStyle
     text?: TextStyle
 }
 
-const GoogleButton = ({classes}: {classes: Classes}) => {
+const GoogleButton = ({classes}: {classes?: Classes}) => {
     return (
         <Pressable style={[styles.button, classes && classes.button]}>
             <GoogleIcon size={17} />
