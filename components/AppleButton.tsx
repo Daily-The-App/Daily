@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { AppleIcon } from "./ui/AuthIcons";
 import { Classes } from "./GoogleButton";
 
-const AppleButton = ({classes}: {classes: Classes}) => {
+const AppleButton = ({classes}: {classes?: Classes}) => {
     return (
         <Pressable style={[styles.button, classes && classes.button]}>
             <AppleIcon size={18} />
